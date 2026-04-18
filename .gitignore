@@ -5,6 +5,13 @@
 *.tar.gz
 *.sig
 *.bundle
+*.tar.gz.downloaded
+
+# Temp download directories from install.sh testing
+tarballs/
+
+# SHA256SUMS generated locally during testing
+SHA256SUMS
 
 # TLS / key material
 *.pem
