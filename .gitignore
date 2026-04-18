@@ -1,0 +1,28 @@
+# Breeze-kit: public installer and signed releases repo
+# Do not commit secrets, generated artifacts, or planning docs.
+
+# Release artifacts (built and signed in CI — not committed)
+*.tar.gz
+*.sig
+*.bundle
+
+# TLS / key material
+*.pem
+*.key
+
+# Environment files
+.env
+.env.*
+
+# Planning artifacts (never committed to any breeze repo)
+project_docs/
+IDEA.md
+*_RESULT.md
+
+# Agent tooling state
+.agentkeep.sqlite
+memory/
+
+# OS noise
+.DS_Store
+Thumbs.db
