@@ -168,6 +168,42 @@ If either check fails, the installer exits non-zero and does not install.
 
 ---
 
+## Verify a Downloaded Binary Manually
+
+If you want to verify a release asset without running the installer, you can invoke cosign directly.
+
+**Prerequisites:** `cosign` v2.x installed and on PATH. Download from https://github.com/sigstore/cosign/releases.
+
+**Steps:**
+
+```sh
+# 1. Download the release assets for your architecture (example: v0.1.0, amd64)
+RELEASE_TAG="v0.1.0"
+ARCH="amd64"
+BASE_URL="https://github.com/nth-prime/breeze-kit/releases/download/${RELEASE_TAG}"
+
+curl -fsSLO "${BASE_URL}/breeze-go_${RELEASE_TAG}_linux_${ARCH}.tar.gz"
+curl -fsSLO "${BASE_URL}/breeze-go_${RELEASE_TAG}_linux_${ARCH}.tar.gz.sig"
+curl -fsSLO "${BASE_URL}/breeze-go_${RELEASE_TAG}_linux_${ARCH}.tar.gz.bundle"
+curl -fsSLO "${BASE_URL}/SHA256SUMS"
+
+# 2. Verify the SHA256 checksum
+sha256sum --check --ignore-missing SHA256SUMS
+
+# 3. Verify the cosign bundle signature
+cosign verify-blob \
+  --bundle "breeze-go_${RELEASE_TAG}_linux_${ARCH}.tar.gz.bundle" \
+  --certificate-oidc-issuer "https://token.actions.githubusercontent.com" \
+  --certificate-identity-regexp "https://github.com/nth-prime/breeze-go/.github/workflows/release.yml@refs/tags/${RELEASE_TAG}" \
+  "breeze-go_${RELEASE_TAG}_linux_${ARCH}.tar.gz"
+```
+
+A successful `cosign verify-blob` prints `Verified OK` and exits 0. Any other outcome means the asset was not produced by the expected workflow run and must not be used.
+
+> **Note:** `cosign verify-blob` requires live connectivity to the Sigstore CA infrastructure (`https://fulcio.sigstore.dev`, `https://rekor.sigstore.dev`) to validate the certificate chain. Verification cannot proceed offline.
+
+---
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
