@@ -18,9 +18,10 @@
 #
 # Cosign pin:
 #   cosign v2.4.1 linux/amd64
-#   SHA256: TODO: cosign v2.4.1 linux/amd64 SHA256 = <paste from https://github.com/sigstore/cosign/releases>
+#   SHA256: 8b24b946dd5809c6bd93de08033bcf6bc0ed7d336b7785787c080f574b89249b
 #   cosign v2.4.1 linux/arm64
-#   SHA256: TODO: cosign v2.4.1 linux/arm64 SHA256 = <paste from https://github.com/sigstore/cosign/releases>
+#   SHA256: 3b2e2e3854d0356c45fe6607047526ccd04742d20bd44afb5be91fa2a6e7cb4a
+#   Source: https://github.com/sigstore/cosign/releases/download/v2.4.1/cosign_checksums.txt
 #   Update procedure: see docs/cosign-pins.md
 #
 # Offline cosign verification:
@@ -51,10 +52,13 @@ COSIGN_OIDC_ISSUER="https://token.actions.githubusercontent.com"
 
 # Pinned cosign version for self-download fallback.
 COSIGN_VERSION="v2.4.1"
-# TODO: cosign v2.4.1 linux/amd64 SHA256 = <paste from https://github.com/sigstore/cosign/releases>
-COSIGN_SHA256_AMD64="PLACEHOLDER_PASTE_FROM_SIGSTORE_RELEASE_PAGE"
-# TODO: cosign v2.4.1 linux/arm64 SHA256 = <paste from https://github.com/sigstore/cosign/releases>
-COSIGN_SHA256_ARM64="PLACEHOLDER_PASTE_FROM_SIGSTORE_RELEASE_PAGE"
+# cosign v2.4.1 official SHA256 hashes (source:
+#   https://github.com/sigstore/cosign/releases/download/v2.4.1/cosign_checksums.txt)
+# Update these whenever COSIGN_VERSION is bumped. Do NOT update one without
+# updating the corresponding version; the pin's whole purpose is to prevent
+# a compromised download from substituting a different binary silently.
+COSIGN_SHA256_AMD64="8b24b946dd5809c6bd93de08033bcf6bc0ed7d336b7785787c080f574b89249b"
+COSIGN_SHA256_ARM64="3b2e2e3854d0356c45fe6607047526ccd04742d20bd44afb5be91fa2a6e7cb4a"
 
 COSIGN_DOWNLOAD_BASE="https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}"
 

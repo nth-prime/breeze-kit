@@ -9,12 +9,11 @@ This document records the pinned `cosign` version used by `install.sh` and descr
 | Field | Value |
 |-------|-------|
 | cosign version | v2.4.1 |
-| linux/amd64 SHA256 | TODO: paste from https://github.com/sigstore/cosign/releases/tag/v2.4.1 |
-| linux/arm64 SHA256 | TODO: paste from https://github.com/sigstore/cosign/releases/tag/v2.4.1 |
+| linux/amd64 SHA256 | `8b24b946dd5809c6bd93de08033bcf6bc0ed7d336b7785787c080f574b89249b` |
+| linux/arm64 SHA256 | `3b2e2e3854d0356c45fe6607047526ccd04742d20bd44afb5be91fa2a6e7cb4a` |
+| Source | https://github.com/sigstore/cosign/releases/download/v2.4.1/cosign_checksums.txt |
 
-**The SHA256 values above MUST be filled in from the official sigstore release page before the first production release of `install.sh`.** The installer will warn and prompt (or abort in strict mode) if placeholder values are detected.
-
-Reference: https://github.com/sigstore/cosign/releases
+Values verified on download by `install.sh` before the `cosign` binary is executed. A SHA256 mismatch is a hard fail (`die`), not a warning — the installer refuses to proceed with a tampered verifier.
 
 ---
 
